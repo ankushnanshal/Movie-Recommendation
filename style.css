@@ -1,0 +1,323 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+
+/* Background */
+body {
+    height: 100vh;
+    background-image: url("resource/main.jpeg"); /* make sure image is in same folder */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* Heading */
+
+
+h1 {
+    font-size: 70px;
+    font-weight: 900;
+    text-align: center;
+    color: #ECA400;
+    text-shadow: 2px 2px 5px black;
+    margin: 0;
+}
+
+
+.heading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+
+.heading a {
+    font-size: 60px;
+    text-decoration: none;
+    border-radius: 10px;
+}
+
+
+
+/* MAIN GRID LAYOUT */
+.main {
+    height: 80vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    padding: 40px;
+}
+
+/* Common style for all links */
+.main a {
+    text-decoration: none;
+    font-size: 28px;
+    padding: 15px 25px;
+    border-radius: 20px;
+    color: black;
+    text-align: center;
+    width: fit-content;
+    transition: all 0.3s ease;
+}
+
+/* Corner + center positioning */
+
+/* Top Left */
+#marvel {
+    grid-row: 1;
+    grid-column: 1;
+    background: linear-gradient(to left, #fc1515 20%, #3434ff 100%);
+    justify-self: start;
+    align-self: start;
+    font-weight: bold;
+}
+
+#marvel:hover {
+    background: #16f8ec;
+    font-size: 40px;
+}
+
+/* Top Right */
+#dc {
+    grid-row: 1;
+    grid-column: 3;
+    background: linear-gradient(to left, #e75570 40%, #0000ff 100%);
+    justify-self: end;
+    align-self: start;
+    font-weight: bold;
+}
+
+
+#dc:hover {
+    background: #cafb35;
+    font-size: 40px;
+}
+
+/* Bottom Left */
+#zombie {
+    grid-row: 3;
+    grid-column: 1;
+    background: linear-gradient(to left, #0a6465 60%, #075917 100%);
+    justify-self: start;
+    align-self: end;
+    font-weight: bold;
+}
+
+ #zombie:hover {
+    background: #ECA400;
+    font-size: 40px;
+ }
+
+/* Bottom Right */
+#transformer {
+    grid-row: 3;
+    grid-column: 3;
+    color: black;
+    background: linear-gradient(to left, #5eee16 40%, #0000ff 100%);
+    justify-self: end;
+    align-self: end;
+    font-weight: bold;
+}
+
+#transformer:hover {
+    background: #67f055;
+    font-size: 40px;
+}
+
+/* Center */
+#romantic {
+    grid-row: 2;
+    grid-column: 2;
+    background: linear-gradient(to left, #ff00d9 40%, #b700ff 100%);
+    justify-self: center;
+    align-self: center;
+    font-weight: bold;
+}
+
+#romantic:hover {
+    background: #ec9845;
+    font-size: 40px;
+}
+
+
+
+
+
+
+
+
+
+
+
+/* Romantic movie & webseries */
+
+.five-class {
+    min-height: 100vh;
+    background-image: url("../love.jpeg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    color: rgb(0, 0, 0);
+    display: flex;                
+    justify-content: space-between; 
+    align-items: flex-start;     
+    padding: 20px;
+    height: 70px;
+
+}
+
+.m5-image {
+    width: 150px;
+    height: 100px;
+    background-image: url("../rom.png");
+    background-size: cover;
+    background-position: center;
+    position: absolute;
+    top: 10px;
+    left: 0;
+    animation: moveX 6s linear infinite alternate,
+               moveY 4s linear infinite alternate;
+}
+
+/* Left ↔ Right */
+@keyframes moveX {
+    0% {
+        left: 0;
+    }
+    100% {
+        left: calc(100% - 120px); /* prevent going out */
+    }
+}
+
+/* Top ↕ Bottom */
+@keyframes moveY {
+    0% {
+        top: 0;
+    }
+    100% {
+        top: calc(100% - 80px); /* prevent going out */
+    }
+}
+
+
+
+#eight{
+    font-size: 40px;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+#nine{
+     font-size: 40px;
+     font-weight: bold;
+}
+
+ */
+
+/* Reset */
+
+/* Heading */
+
+
+.heading a {
+    font-size: 50px;
+}
+
+h1 {
+    font-size: 60px;
+    font-weight: 900;
+    color: #ECA400;
+    text-shadow: 2px 2px 5px black;
+}
+
+/* Grid Layout */
+.main {
+    height: 80vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    padding: 40px;
+}
+
+/* Common Button Style */
+.main a {
+    font-size: 26px;
+    padding: 15px 25px;
+    border-radius: 20px;
+    color: black;
+    text-align: center;
+    width: fit-content;
+    transition: all 0.3s ease;
+    font-weight: bold;
+}
+
+/* Marvel */
+#marvel {
+    grid-row: 1;
+    grid-column: 1;
+    background: linear-gradient(to left, red, blue);
+    justify-self: start;
+    align-self: start;
+}
+#marvel:hover {
+    background: cyan;
+    transform: scale(1.2);
+}
+
+/* DC */
+#dc {
+    grid-row: 1;
+    grid-column: 3;
+    background: linear-gradient(to left, pink, blue);
+    justify-self: end;
+    align-self: start;
+}
+#dc:hover {
+    background: yellowgreen;
+    transform: scale(1.2);
+}
+
+/* Zombie */
+#zombie {
+    grid-row: 3;
+    grid-column: 1;
+    background: linear-gradient(to left, teal, green);
+    justify-self: start;
+    align-self: end;
+}
+#zombie:hover {
+    background: orange;
+    transform: scale(1.2);
+}
+
+/* Transformer */
+#transformer {
+    grid-row: 3;
+    grid-column: 3;
+    background: linear-gradient(to left, lime, blue);
+    justify-self: end;
+    align-self: end;
+}
+#transformer:hover {
+    background: lightgreen;
+    transform: scale(1.2);
+}
+
+/* Romantic */
+#romantic {
+    grid-row: 2;
+    grid-column: 2;
+    background: linear-gradient(to left, magenta, purple);
+    justify-self: center;
+    align-self: center;
+}
+#romantic:hover {
+    background: coral;
+    transform: scale(1.2);
+}
