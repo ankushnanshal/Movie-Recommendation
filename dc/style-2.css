@@ -1,0 +1,102 @@
+
+
+body {
+    min-height: 100vh;
+    background-image: url("../resource/dc.jpeg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+.note-2 {
+    text-align: center;          
+    font-size: 22px;             
+    color: #355872;
+    margin: 20px 0 30px 0;
+} 
+
+
+/* dc movie & webseries */
+
+.second-class{
+    color: white;
+    display: flex;                
+    justify-content: space-between; 
+    align-items: flex-start;     
+    padding: 20px;
+}
+
+/* .m2-image {
+    width: 150px;
+    height: 100px;
+    background-image: url("../resource/dc-logo.png");
+    background-size: cover;
+    background-position: center;
+    position: absolute;
+    top: 10px;
+    left: 0;
+     animation: moveX 6s linear infinite alternate,
+               moveY 4s linear infinite alternate,
+               spin 2s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+} */
+
+
+.m2-image {
+    width: 150px;
+    height: 100px;
+    background-image: url("../resource/dc-logo.png");
+    background-size: cover;
+    background-position: center;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    animation: moveSpin 6s linear infinite alternate;
+}
+
+@keyframes moveSpin {
+    0% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+    100% {
+        transform: translate(calc(100vw - 150px), 120px) rotate(360deg);
+    }
+}
+    
+
+#three{
+    margin-left: 10px;
+    font-size: 45px;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+#three a{
+    color: #111FA2;
+}
+
+#three li {
+    color: black;
+}
+
+#four{
+    margin-left: 10px;
+     font-size: 45px;
+     font-weight: bold;
+     padding-right: 0;
+}
+
+#four a{
+    color: #111FA2;
+}
+
+#four li {
+    color: black;
+}
