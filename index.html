@@ -3,37 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movie Recommandation</title>
+    <title>Movie  Recommendation</title>
     <link rel="stylesheet" href="style.css">
 
 </head>
 <body>
-        <div class="heading">
-          <a href="#" target="_blank">🎥</a>
-           <h1>Movie Recommandation</h1>
-           <a href="#" target="_blank">📽️</a>
-        </div>
 
-       <div class="main">
-           <a href="marvel/1index.html" id="marvel">
-              Marvel Universe !
-           </a>
 
-           <a href="dc/2index.html" id="dc">
-            DC Universe !
-          </a>
+<div class="heading">
+    <span>🎥</span>
+    <h1>Movie Recommendation</h1>
+    <span>📽️</span>
+</div>
 
-          <a href="zombie/3index.html" id="zombie">
-            Zombie Series !
-          </a>
 
-          <a href="transformer/4index.html" id="transformer">
-            Transformer Universe 
-          </a>
 
-          <a href="romantic/5index.html" id="romantic">
-            Most Romantic !
-          </a>
-        </div>
+
+
+<form action="/search" method="POST">
+    <div class="search-box">
+
+        <!-- Optional icon -->
+        <i>🔍</i>
+
+        <input 
+            type="text" 
+            id="search"
+            name="movie"
+            placeholder="Search movies or categories..."
+            autocomplete="off"
+            required>
+
+        <button type="submit">Search</button>
+
+    </div>
+</form>
+
+<ul id="results"></ul>
+    <i class="fa-solid fa-magnifying-glass"></i>
+</div>
+
+<div class="main" id="movieList">
+
+  
+    <a href="marvel/1index.html" class="movie-item" id="marvel">
+        Marvel Universe !
+    </a>
+
+    
+    <a href="dc/2index.html" class="movie-item" id="dc">
+        DC Universe !
+    </a>
+
+  
+    <a href="zombie/3index.html" class="movie-item" id="zombie">
+        Zombie Series !
+    </a>
+
+   
+    <a href="transformer/4index.html" class="movie-item" id="transformer">
+        Transformer Universe 
+    </a>
+
+   
+    <a href="romantic/5index.html" class="movie-item" id="romantic">
+        Most Romantic !
+    </a>
+
+</div>
+
+<script src="movie.js"></script>
+<script src="search.js"></script>
 </body>
-</html>
+</html> 
