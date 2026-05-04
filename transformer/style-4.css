@@ -1,4 +1,3 @@
-
 body {
     min-height: 100vh;
     background-image: url("../resource/transformer-1.jpeg");
@@ -6,28 +5,32 @@ body {
     background-repeat: no-repeat;
     background-position: center;
     background-attachment: fixed;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
 }
 
-
+/* Note section */
 .note-4 {
-    text-align: center;          
-    font-size: 22px;             
+    text-align: center;
+    font-size: 22px;
     color: #0D1A63;
     margin: 20px 0 30px 0;
-} 
-
-
-/* Transformer movie & webseries */
-
-.four-class {
-    color: white;
-    display: flex;                
-    justify-content: space-between; 
-    align-items: flex-start;     
-    padding: 20px;
-    height: 70px;
 }
 
+/* Main container */
+.four-class {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 20px;
+    position: relative;
+    min-height: 80vh;
+    color: white;
+    gap: 40px;
+}
+
+/* Floating image */
 .m4-image {
     width: 150px;
     height: 100px;
@@ -35,47 +38,53 @@ body {
     background-size: cover;
     background-position: center;
     position: absolute;
-    top: 10px;
+    top: 0;
     left: 0;
-    animation: diagonalMove 6s linear infinite;
+    animation: diagonalMove 8s linear infinite;
 }
 
+/* Smooth diagonal animation */
 @keyframes diagonalMove {
     0% {
-        top: 0;
-        left: 0;
+        transform: translate(0, 0);
     }
     25% {
-        top: 0;
-        left: calc(100% - 150px);
+        transform: translate(80vw, 0);
     }
     50% {
-        top: calc(100% - 100px);
-        left: calc(100% - 150px);
+        transform: translate(80vw, 60vh);
     }
     75% {
-        top: calc(100% - 100px);
-        left: 0;
+        transform: translate(0, 60vh);
     }
     100% {
-        top: 0;
-        left: 0;
+        transform: translate(0, 0);
     }
 }
 
+/* Movie list */
 #seven {
-    font-size: 50px;
+    font-size: 28px;
     font-weight: bold;
-    margin-left: 135px;
+    margin-left: 120px;
     margin-top: 50px;
-    
-}
-
-#seven a{
-    color: #0D1A63;
-    
+    list-style: none;
+    padding: 0;
 }
 
 #seven li {
+    margin-bottom: 10px;
     color: #A82323;
+}
+
+/* Links */
+#seven a {
+    color: #0D1A63;
+    text-decoration: none;
+}
+
+/* Hover effect */
+#seven a:hover {
+    color: #ff7f11;
+    text-decoration: underline;
 }
