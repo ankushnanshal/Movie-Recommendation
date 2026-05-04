@@ -1,33 +1,37 @@
 
 body {
+    margin: 0;
+    padding: 0;
     background-image: url("../resource/marvel.jpeg");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
     background-attachment: fixed;
+    font-family: Arial, sans-serif;
 }
 
-
-
+/* Note section */
 .note-1 {
-    text-align: center;          
-    font-size: 22px;             
+    text-align: center;
+    font-size: 22px;
     color: #355872;
-    margin: 20px 0 30px 0;
-} 
-
-/*marvel movies & webseries */
-
-.myclass {
-    color: white;
-    display: flex;                
-    justify-content: space-between; 
-    align-items: flex-start;     
-    padding: 20px;
+    margin: 20px 0;
+    font-weight: bold;
 }
 
+/* Main container */
+.myclass {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 80px;
+    padding: 30px;
+    position: relative;
+    color: white;
+}
+
+/* Floating image animation */
 .m1-image {
-    margin-top: 35px;
     width: 150px;
     height: 100px;
     background-image: url("../resource/Avenger.png");
@@ -36,53 +40,70 @@ body {
     position: absolute;
     top: 10px;
     left: 0;
+
     animation: moveX 8s linear infinite alternate,
                moveY 3s ease-in-out infinite alternate;
 }
 
-
-
-
- 
-
-/* Left ↔ Right movement */
 @keyframes moveX {
-    from {
-        left: 0;
-    }
-    to {
-        left: calc(100% - 150px); /* exact width */
-    }
+    from { left: 0; }
+    to { left: calc(100% - 150px); }
 }
 
+@keyframes moveY {
+    from { top: 10px; }
+    to { top: 120px; }
+}
 
+/* Movie section layout */
+.movie-section {
+    display: flex;
+    gap: 120px;
+    z-index: 2;
+}
 
-#first {
-    font-size: 40px;
+/* Lists reset */
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* List items */
+li {
+    margin: 12px 0;
+    font-size: 22px;
+}
+
+/* Links */
+a {
+    text-decoration: none;
+    color: #ff5b5b;
     font-weight: bold;
-    margin-left: 10px;
-    z-index: 999;
-} 
-
-#first a{
-    color: #FF5B5B;
-}
-#first li {
-    color: black;
+    transition: 0.3s;
 }
 
-
-#second {
-    font-size: 40px;
-    font-weight: bold;
-    padding-right: 0;
-    z-index: 999;         
+a:hover {
+    color: yellow;
 }
 
-#second a{
-    color: #FF5B5B;
+/* Optional (if you use later) */
+.box {
+    height: 200px;
+    width: 60%;
+    padding: 20px 0 15px;
+    margin-left: 15px;
 }
 
-#second li {
-    color: black;
+.box-img {
+    height: 180px;
+    border: 2px solid red;
+}
+
+.box-content {
+    margin: 1rem;
+}
+
+.box-content p {
+    color: #e74f0e;
 }
