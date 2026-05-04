@@ -1,4 +1,5 @@
 
+
 body {
     min-height: 100vh;
     background-image: url("../resource/zombie-1.jpeg");
@@ -6,30 +7,31 @@ body {
     background-repeat: no-repeat;
     background-position: center;
     background-attachment: fixed;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
 }
 
-
+/* Note section */
 .note-3 {
-    text-align: center;          
-    font-size: 22px;             
+    text-align: center;
+    font-size: 22px;
     color: #FF7F11;
     margin: 20px 0 30px 0;
-} 
-
-
-
-/* Zombie movie & webseries */
-
-
-.three-class{
-    color: white;
-    display: flex;                
-    justify-content: space-between; 
-    align-items: flex-start;     
-    padding: 20px;
-
 }
 
+/* Main container */
+.three-class {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 20px;
+    position: relative;
+    color: white;
+    gap: 40px;
+}
+
+/* Floating image */
 .m3-image {
     width: 150px;
     height: 100px;
@@ -42,38 +44,53 @@ body {
     animation: zigzag 12s linear infinite;
 }
 
+/* Better smooth animation */
 @keyframes zigzag {
-    0%   { left: 0; top: 0; }
-    25%  { left: 50%; top: 30%; }
-    50%  { left: 100%; top: 0; }
-    75%  { left: 50%; top: 70%; }
-    100% { left: 0; top: 0; }
+    0%   { transform: translate(0, 0); }
+    25%  { transform: translate(40vw, 20vh); }
+    50%  { transform: translate(80vw, 0); }
+    75%  { transform: translate(40vw, 50vh); }
+    100% { transform: translate(0, 0); }
 }
 
-#five{
-    font-size: 40px;
+/* Left list */
+#five {
+    font-size: 28px;
     font-weight: bold;
-    margin-left: 10px;
-}
-
-
-#five a{
-    color: rgb(72, 220, 249);
+    margin-left: 20px;
+    list-style: none;
+    padding: 0;
 }
 
 #five li {
-    color: white;
+    margin-bottom: 10px;
 }
 
-#six{
-    font-size: 40px;
-    font-weight: bold;
-}
-
-#six a{
+#five a {
     color: rgb(72, 220, 249);
+    text-decoration: none;
+}
+
+/* Right list */
+#six {
+    font-size: 28px;
+    font-weight: bold;
+    list-style: none;
+    padding: 0;
 }
 
 #six li {
-    color: white;
+    margin-bottom: 10px;
+}
+
+#six a {
+    color: rgb(72, 220, 249);
+    text-decoration: none;
+}
+
+/* Hover effect */
+#five a:hover,
+#six a:hover {
+    color: #ff7f11;
+    text-decoration: underline;
 }
