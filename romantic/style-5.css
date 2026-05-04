@@ -6,29 +6,32 @@ body {
     background-repeat: no-repeat;
     background-position: center;
     background-attachment: fixed;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
 }
 
-
+/* Note */
 .note-5 {
-    text-align: center;          
-    font-size: 22px;             
+    text-align: center;
+    font-size: 22px;
     color: #060771;
     margin: 20px 0 30px 0;
 }
 
-
-/* Romantic movie & webseries */
-
+/* Main container */
 .five-class {
-    color: rgb(0, 0, 0);
-    display: flex;                
-    justify-content: space-between; 
-    align-items: flex-start;     
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
     padding: 20px;
-    height: 70px;
-
+    position: relative;
+    min-height: 80vh;
+    gap: 40px;
+    color: black;
 }
 
+/* Floating image */
 .m5-image {
     width: 150px;
     height: 100px;
@@ -36,41 +39,62 @@ body {
     background-size: cover;
     background-position: center;
     position: absolute;
-    top: 10px;
+    top: 0;
     left: 0;
     animation: moveX 6s linear infinite alternate,
                moveY 4s linear infinite alternate;
 }
 
-
+/* Horizontal movement */
 @keyframes moveX {
-    0% {
-        left: 0;
-    }
-    100% {
-        left: calc(100% - 120px); 
-    }
+    0% { transform: translateX(0); }
+    100% { transform: translateX(80vw); }
 }
 
-
+/* Vertical movement */
 @keyframes moveY {
-    0% {
-        top: 0;
-    }
-    100% {
-        top: calc(100% - 80px); 
-    }
+    0% { transform: translateY(0); }
+    100% { transform: translateY(60vh); }
 }
 
-
-
-#eight{
-    font-size: 40px;
+/* Left list */
+#eight {
+    font-size: 28px;
     font-weight: bold;
-    margin-left: 10px;
+    margin-left: 20px;
+    list-style: none;
+    padding: 0;
 }
 
-#nine{
-     font-size: 40px;
-     font-weight: bold;
+#eight li {
+    margin-bottom: 10px;
+}
+
+#eight a {
+    color: #060771;
+    text-decoration: none;
+}
+
+/* Right list */
+#nine {
+    font-size: 28px;
+    font-weight: bold;
+    list-style: none;
+    padding: 0;
+}
+
+#nine li {
+    margin-bottom: 10px;
+}
+
+#nine a {
+    color: #060771;
+    text-decoration: none;
+}
+
+/* Hover effect */
+#eight a:hover,
+#nine a:hover {
+    color: #ff4d6d;
+    text-decoration: underline;
 }
