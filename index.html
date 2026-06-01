@@ -9,7 +9,7 @@
 <body>
 
     <div class="top-right" id="loginSpace">
-        <button class="login-button" onclick="openLogin()">Login</button>
+        <button class="login-button" onclick="openLogin()">Login / Sign Up</button>
     </div>
 
     <div class="heading">
@@ -88,14 +88,22 @@
     <div class="login-popup" id="loginPopup">
         <div class="login-container">
             <span class="close-btn" onclick="closeLogin()">&times;</span>
-            <h1>Login</h1>
+            
+            <h1 id="authTitle">Login</h1>
+            
             <form id="authForm">
                 <label>Email</label>
                 <input type="email" id="loginEmail" placeholder="Enter Email" required>
+                
                 <label>Password</label>
                 <input type="password" id="loginPassword" placeholder="Enter Password" required>
-                <button type="submit">Login</button>
+                
+                <button type="submit" id="authSubmitBtn">Login</button>
             </form>
+
+            <div class="toggle-mode-container">
+                <p><span id="toggleLabel">Don't have an account?</span> <a href="#" id="toggleAuthMode">Sign Up</a></p>
+            </div>
         </div>
     </div>
 

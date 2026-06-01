@@ -61,13 +61,14 @@ body{
     text-shadow: 3px 3px 6px black;
 }
 
-/* FORM */
+/* FORM ELEMENTS */
 .recommend-form{
     width: 380px;
     margin: 40px auto;
     padding: 30px;
-    background: rgba(0,0,0,0.8);
+    background: rgba(0,0,0,0.85);
     border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .recommend-form form{
@@ -77,17 +78,20 @@ body{
 
 .recommend-form label,
 .login-container label{
-    color: white;
+    color: #eeeeee;
     margin-top: 15px;
-    margin-bottom: 5px;
+    margin-bottom: 6px;
     font-weight: bold;
+    font-size: 14px;
+    letter-spacing: 0.5px;
 }
 
-.recommend-form select,
-.login-container input{
+.recommend-form select{
     padding: 12px;
     border-radius: 8px;
-    border: none;
+    border: 1px solid #444;
+    background-color: #ffffff;
+    color: #000000;
     outline: none;
 }
 
@@ -99,6 +103,7 @@ body{
     border-radius: 8px;
     color: white;
     font-size: 18px;
+    font-weight: bold;
     cursor: pointer;
 }
 
@@ -106,25 +111,24 @@ body{
     background: linear-gradient(to right, red, orange);
 }
 
-/* NEW: Reset button styling */
 .reset-btn {
     margin-top: 12px !important;
-    background: #333333;
-    border: 1px solid #555555 !important;
+    background: #222222;
+    border: 1px solid #444444 !important;
     font-size: 16px !important;
     transition: background 0.2s ease;
 }
 
 .reset-btn:hover {
-    background: #444444;
+    background: #333333;
 }
 
-/* RESULT */
+/* RESULT SECTION */
 .result-box{
     width: 80%;
     margin: 40px auto;
     padding: 30px;
-    background: rgba(0,0,0,0.8);
+    background: rgba(0,0,0,0.85);
     border-radius: 15px;
     text-align: center;
 }
@@ -147,41 +151,97 @@ body{
     border-radius: 8px;
 }
 
-/* LOGIN POPUP */
+/* AUTH POPUP LAYOUT */
 .login-popup{
     width: 100%;
     height: 100vh;
-    background: rgba(0,0,0,0.8);
+    background: rgba(0, 0, 0, 0.85);
     position: fixed;
     top: 0;
     left: 0;
     display: none;
     justify-content: center;
     align-items: center;
+    z-index: 9999;
 }
 
-/* LOGIN BOX */
 .login-container{
-    width: 350px;
-    background: black;
-    padding: 30px;
+    width: 380px;
+    background: #111111;
+    padding: 35px;
     border-radius: 15px;
+    border: 1px solid #ff9f1c; 
     position: relative;
+    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.7);
 }
 
 .login-container h1{
     text-align: center;
     color: orange;
-    margin-bottom: 20px;
+    margin-top: 10px;
+    margin-bottom: 25px;
+    font-size: 32px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.login-container input{
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #444444;
+    background-color: #222222; 
+    color: #ffffff;            
+    outline: none;
+    font-size: 15px;
+    margin-bottom: 5px;
+}
+
+.login-container input:focus {
+    border-color: orange;
+}
+
+.login-container button {
+    background: linear-gradient(to right, #ff4500, #ff8c00);
+    width: 100%;
 }
 
 .close-btn{
     position: absolute;
-    top: 10px;
-    right: 15px;
-    color: white;
-    font-size: 30px;
+    top: 12px;
+    right: 18px;
+    color: #aaaaaa;
+    font-size: 32px;
+    font-weight: bold;
     cursor: pointer;
+    line-height: 1;
+    transition: color 0.2s;
+}
+
+.close-btn:hover {
+    color: #ff4500;
+}
+
+/* SWITCH PANEL TEXT AREA */
+.toggle-mode-container {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.toggle-mode-container p {
+    color: #aaaaaa;
+    font-size: 14px;
+}
+
+.toggle-mode-container a {
+    color: orange;
+    text-decoration: none;
+    font-weight: bold;
+    margin-left: 5px;
+}
+
+.toggle-mode-container a:hover {
+    text-decoration: underline;
+    color: #ff4500;
 }
 
 /* RESPONSIVE */

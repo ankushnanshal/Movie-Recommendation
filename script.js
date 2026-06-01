@@ -1,6 +1,9 @@
-// Smart API connection rule pointing to the updated Flask port 5001
 const API_BASE = window.location.origin.includes('5001') ? '' : 'http://127.0.0.1:5001';
 
+// Auth Mode Tracker State ('login' or 'signup')
+let currentAuthMode = 'login';
+
+// RECOMMENDATION ENGINE TRIGGER
 document.getElementById('movieForm').addEventListener('submit', function(e) {
     e.preventDefault();
 
@@ -46,15 +49,18 @@ document.getElementById('movieForm').addEventListener('submit', function(e) {
     });
 });
 
-// LOGIN ACTION
+// DYNAMIC LOGIN & SIGN UP ACTION CONTROLLER
 document.getElementById('authForm').addEventListener('submit', function(e) {
     e.preventDefault();
+    
     const payload = {
         email: document.getElementById('loginEmail').value,
         password: document.getElementById('loginPassword').value
     };
 
-    fetch(`${API_BASE}/login`, {
+    const targetEndpoint = currentAuthMode === 'login' ? '/login' : '/signup';
+
+    fetch(`${API_BASE}${targetEndpoint}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
@@ -62,9 +68,15 @@ document.getElementById('authForm').addEventListener('submit', function(e) {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            document.getElementById('loginSpace').innerHTML = `<div class="user-badge">👤 Logged in as admin</div>`;
-            closeLogin();
-            document.getElementById('authForm').reset();
+            if (currentAuthMode === 'signup') {
+                alert("Account successfully created! You can now log in.");
+                // Automatically flip the view back to login view smoothly
+                document.getElementById('toggleAuthMode').click();
+            } else {
+                document.getElementById('loginSpace').innerHTML = `<div class="user-badge">👤 Logged in as ${payload.email.split('@')[0]}</div>`;
+                closeLogin();
+                document.getElementById('authForm').reset();
+            }
         } else {
             alert(data.message);
         }
@@ -72,14 +84,33 @@ document.getElementById('authForm').addEventListener('submit', function(e) {
     .catch(error => alert(`Authentication Issue: ${error.message}`));
 });
 
-// NEW: RESET FORM AND CLEAR SEARCH RESULTS STATE
+// STABLE MULTI-MODE TOGGLE (Preserves the Element and Event Listeners)
+document.getElementById('toggleAuthMode').addEventListener('click', function(e) {
+    e.preventDefault();
+    
+    const title = document.getElementById('authTitle');
+    const submitBtn = document.getElementById('authSubmitBtn');
+    const toggleLabel = document.getElementById('toggleLabel');
+    const toggleLink = document.getElementById('toggleAuthMode');
+
+    if (currentAuthMode === 'login') {
+        currentAuthMode = 'signup';
+        title.textContent = 'Sign Up';
+        submitBtn.textContent = 'Register';
+        toggleLabel.textContent = 'Already have an account?';
+        toggleLink.textContent = 'Login Here';
+    } else {
+        currentAuthMode = 'login';
+        title.textContent = 'Login';
+        submitBtn.textContent = 'Login';
+        toggleLabel.textContent = "Don't have an account?";
+        toggleLink.textContent = 'Sign Up';
+    }
+});
+
+// RESET VIEW STATES MANAGER
 document.getElementById('resetFormBtn').addEventListener('click', function() {
-    // 1. Reset all drop-down selector options to default empty placeholder states
     document.getElementById('movieForm').reset();
-
-    // 2. Erase the interior elements inside the movie recommendation list item containers
     document.getElementById('movieList').innerHTML = '';
-
-    // 3. Hide the entire result display section out of view completely
     document.getElementById('resultSection').style.display = 'none';
 });
