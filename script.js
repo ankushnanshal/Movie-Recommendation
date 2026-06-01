@@ -1,34 +1,24 @@
-// Smart environmental network adapter (Routing to Port 5001)
+// Smart API connection rule pointing to the updated Flask port 5001
 const API_BASE = window.location.origin.includes('5001') ? '' : 'http://127.0.0.1:5001';
 
-// MOVIE RECOMMENDATION INTERCEPT HANDLER
 document.getElementById('movieForm').addEventListener('submit', function(e) {
     e.preventDefault();
 
-    const genre = document.getElementById('genre').value;
-    const language = document.getElementById('language').value;
-    const sortBy = document.getElementById('sortBy').value;
-    const rating = document.getElementById('rating').value;
-
     const payload = {
-        genre: genre,
-        language: language,
-        sortBy: sortBy,
-        rating: rating
+        genre: document.getElementById('genre').value,
+        language: document.getElementById('language').value,
+        sortBy: document.getElementById('sortBy').value,
+        rating: document.getElementById('rating').value
     };
 
     fetch(`${API_BASE}/recommend`, {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
     })
     .then(response => {
         if (!response.ok) {
-            return response.json().then(errBody => {
-                throw new Error(errBody.error || `Server Status Code: ${response.status}`);
-            });
+            return response.json().then(err => { throw new Error(err.error || 'Server error'); });
         }
         return response.json();
     })
@@ -41,31 +31,28 @@ document.getElementById('movieForm').addEventListener('submit', function(e) {
         if (data.movies && data.movies.length > 0) {
             data.movies.forEach(movie => {
                 const li = document.createElement('li');
-                li.innerHTML = `<strong>${movie.title}</strong> — ⭐ IMDb Score: ${movie.rating} (Popularity: ${movie.popularity})`;
+                li.innerHTML = `<strong>${movie.title}</strong> — ⭐ Rating: ${movie.rating} (Popularity: ${movie.popularity})`;
                 movieListElement.appendChild(li);
             });
         } else {
             const li = document.createElement('li');
-            li.textContent = 'No matching movies found inside this criteria profile.';
+            li.textContent = 'No matching movies found for this criteria combination.';
             movieListElement.appendChild(li);
         }
-
         resultSection.style.display = 'block';
     })
     .catch(error => {
-        console.error('Fetch operations crash trace:', error);
-        alert(`System Issue: ${error.message}`);
+        alert(`System Error: ${error.message}`);
     });
 });
 
-// PASSIVE AUTHENTICATION LOGIN HANDLER
+// LOGIN ACTION
 document.getElementById('authForm').addEventListener('submit', function(e) {
     e.preventDefault();
-
-    const emailInput = document.getElementById('loginEmail').value;
-    const passwordInput = document.getElementById('loginPassword').value;
-
-    const payload = { email: emailInput, password: passwordInput };
+    const payload = {
+        email: document.getElementById('loginEmail').value,
+        password: document.getElementById('loginPassword').value
+    };
 
     fetch(`${API_BASE}/login`, {
         method: 'POST',
@@ -82,5 +69,5 @@ document.getElementById('authForm').addEventListener('submit', function(e) {
             alert(data.message);
         }
     })
-    .catch(error => alert(`Authentication Exception Error: ${error.message}`));
+    .catch(error => alert(`Authentication Issue: ${error.message}`));
 });
