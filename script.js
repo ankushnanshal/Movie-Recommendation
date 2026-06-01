@@ -71,3 +71,15 @@ document.getElementById('authForm').addEventListener('submit', function(e) {
     })
     .catch(error => alert(`Authentication Issue: ${error.message}`));
 });
+
+// NEW: RESET FORM AND CLEAR SEARCH RESULTS STATE
+document.getElementById('resetFormBtn').addEventListener('click', function() {
+    // 1. Reset all drop-down selector options to default empty placeholder states
+    document.getElementById('movieForm').reset();
+
+    // 2. Erase the interior elements inside the movie recommendation list item containers
+    document.getElementById('movieList').innerHTML = '';
+
+    // 3. Hide the entire result display section out of view completely
+    document.getElementById('resultSection').style.display = 'none';
+});
