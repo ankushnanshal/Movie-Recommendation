@@ -1,0 +1,41 @@
+{
+    "admin@gmail.com": {
+        "password": "1234",
+        "history": []
+    },
+    "ankushnanshal007@gmail.com": {
+        "password": "123456",
+        "history": [
+            {
+                "query": "Genre: Animation, Lang: en",
+                "movies": [
+                    {
+                        "title": "Minions",
+                        "rating": 6.4,
+                        "popularity": 875.581305
+                    },
+                    {
+                        "title": "Big Hero 6",
+                        "rating": 7.8,
+                        "popularity": 203.73459
+                    },
+                    {
+                        "title": "Frozen",
+                        "rating": 7.3,
+                        "popularity": 165.125366
+                    },
+                    {
+                        "title": "Despicable Me 2",
+                        "rating": 7.0,
+                        "popularity": 136.886704
+                    },
+                    {
+                        "title": "Inside Out",
+                        "rating": 8.0,
+                        "popularity": 128.655964
+                    }
+                ]
+            }
+        ]
+    }
+}

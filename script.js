@@ -2,6 +2,7 @@ const API_BASE = '';
 
 let currentAuthMode = 'login';
 let selectedAvatarUrl = 'https://api.dicebear.com/7.x/bottts/svg?seed=1';
+let loggedInEmail = null;
 
 function showNotification(message, isSuccess = true) {
     const notification = document.getElementById('statusNotification');
@@ -52,7 +53,8 @@ document.getElementById('movieForm').addEventListener('submit', function(e) {
         genre: document.getElementById('genre').value,
         language: document.getElementById('language').value,
         sortBy: document.getElementById('sortBy').value,
-        rating: document.getElementById('rating').value
+        rating: document.getElementById('rating').value,
+        email: loggedInEmail
     };
 
     fetch(`${API_BASE}/recommend`, {
@@ -120,6 +122,7 @@ document.getElementById('authForm').addEventListener('submit', function(e) {
             showNotification(data.message, true);
 
             if (currentAuthMode === 'login') {
+                loggedInEmail = email;
                 const loginSpace = document.getElementById('loginSpace');
 
                 loginSpace.innerHTML = `
@@ -127,13 +130,20 @@ document.getElementById('authForm').addEventListener('submit', function(e) {
                         <img src="${selectedAvatarUrl}" id="userBadgeImg" class="user-avatar-trigger" onclick="toggleDropdownMenu()" alt="Profile">
                         <div class="avatar-dropdown-menu" id="avatarDropdownMenu">
                             <div class="dropdown-header" title="${email}">${email}</div>
+                            <button id="viewHistoryBtn"><i class="fa-solid fa-history"></i> Recommendation History</button>
                             <button onclick="openProfilePopup(); toggleDropdownMenu();"><i class="fa-solid fa-image"></i> Update Photo</button>
                             <button id="logoutBtn"><i class="fa-solid fa-sign-out-alt"></i> Logout</button>
                         </div>
                     </div>
                 `;
 
+                document.getElementById('viewHistoryBtn').addEventListener('click', function() {
+                    toggleDropdownMenu();
+                    fetchHistory();
+                });
+
                 document.getElementById('logoutBtn').addEventListener('click', function() {
+                    loggedInEmail = null;
                     loginSpace.innerHTML = `
                         <button class="login-button" onclick="openLogin()"><i class="fa-solid fa-user"></i></button>
                     `;
@@ -156,6 +166,49 @@ document.getElementById('authForm').addEventListener('submit', function(e) {
     })
     .catch(error => showNotification(`Authentication Issue: ${error.message}`, false));
 });
+
+function fetchHistory() {
+    if (!loggedInEmail) return;
+
+    fetch(`${API_BASE}/history`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: loggedInEmail })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.success) {
+            const movieListElement = document.getElementById('movieList');
+            const resultSection = document.getElementById('resultSection');
+            
+            movieListElement.innerHTML = '<li class="history-header"><h3>Your Recommendation History</h3></li>';
+            
+            if (data.history && data.history.length > 0) {
+                data.history.forEach((search, index) => {
+                    const searchTitle = document.createElement('li');
+                    searchTitle.className = 'history-search-title';
+                    searchTitle.innerHTML = `<strong>Search #${index + 1} (${search.query}):</strong>`;
+                    movieListElement.appendChild(searchTitle);
+
+                    search.movies.forEach(movie => {
+                        const li = document.createElement('li');
+                        li.className = 'history-movie-item';
+                        li.innerHTML = `&nbsp;&nbsp;&nbsp;&bull;&nbsp;<strong>${movie.title}</strong> — ⭐ ${movie.rating} | 🔥 ${movie.popularity.toFixed(1)}`;
+                        movieListElement.appendChild(li);
+                    });
+                });
+            } else {
+                movieListElement.innerHTML += '<li class="no-results">No history found yet. Start exploring movies!</li>';
+            }
+            
+            resultSection.style.display = 'block';
+            resultSection.scrollIntoView({ behavior: 'smooth' });
+        } else {
+            showNotification(data.message, false);
+        }
+    })
+    .catch(error => showNotification(`History Error: ${error.message}`, false));
+}
 
 document.getElementById('toggleAuthMode').addEventListener('click', function(e) {
     e.preventDefault();
