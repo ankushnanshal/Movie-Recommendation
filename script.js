@@ -1,9 +1,7 @@
-const API_BASE = window.location.origin.includes('5001') ? '' : 'http://127.0.0.1:5001';
+const API_BASE = '';
 
-// Auth Mode Tracker State ('login' or 'signup')
 let currentAuthMode = 'login';
 
-// RECOMMENDATION ENGINE TRIGGER
 document.getElementById('movieForm').addEventListener('submit', function(e) {
     e.preventDefault();
 
@@ -21,59 +19,73 @@ document.getElementById('movieForm').addEventListener('submit', function(e) {
     })
     .then(response => {
         if (!response.ok) {
-            return response.json().then(err => { throw new Error(err.error || 'Server error'); });
+            return response.json().then(err => {
+                throw new Error(err.error || 'Server error');
+            });
         }
         return response.json();
     })
     .then(data => {
         const movieListElement = document.getElementById('movieList');
         const resultSection = document.getElementById('resultSection');
-        
+
         movieListElement.innerHTML = '';
 
         if (data.movies && data.movies.length > 0) {
             data.movies.forEach(movie => {
                 const li = document.createElement('li');
-                li.innerHTML = `<strong>${movie.title}</strong> — ⭐ Rating: ${movie.rating} (Popularity: ${movie.popularity})`;
+                li.innerHTML = `<strong>${movie.title}</strong> — Rating: ⭐ ${movie.rating} | Popularity: 🔥 ${movie.popularity.toFixed(1)}`;
                 movieListElement.appendChild(li);
             });
+
+            resultSection.style.display = 'block';
+            resultSection.scrollIntoView({ behavior: 'smooth' });
         } else {
-            const li = document.createElement('li');
-            li.textContent = 'No matching movies found for this criteria combination.';
-            movieListElement.appendChild(li);
+            movieListElement.innerHTML =
+                '<li class="no-results">No movies found matching your criteria. Try adjusting filters!</li>';
+            resultSection.style.display = 'block';
         }
-        resultSection.style.display = 'block';
     })
-    .catch(error => {
-        alert(`System Error: ${error.message}`);
-    });
+    .catch(error => alert(`Recommendation Error: ${error.message}`));
 });
 
-// DYNAMIC LOGIN & SIGN UP ACTION CONTROLLER
 document.getElementById('authForm').addEventListener('submit', function(e) {
     e.preventDefault();
-    
-    const payload = {
-        email: document.getElementById('loginEmail').value,
-        password: document.getElementById('loginPassword').value
-    };
 
-    const targetEndpoint = currentAuthMode === 'login' ? '/login' : '/signup';
+    const email = document.getElementById('loginEmail').value.trim();
+    const password = document.getElementById('loginPassword').value.trim();
 
-    fetch(`${API_BASE}${targetEndpoint}`, {
+    if (!email || !password) {
+        alert("Please fill in all fields.");
+        return;
+    }
+
+    const endpoint = currentAuthMode === 'login' ? '/login' : '/signup';
+
+    fetch(`${API_BASE}${endpoint}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
+        body: JSON.stringify({ email, password })
     })
-    .then(response => response.json())
+    .then(res => res.json())
     .then(data => {
         if (data.success) {
-            if (currentAuthMode === 'signup') {
-                alert("Account successfully created! You can now log in.");
-                // Automatically flip the view back to login view smoothly
-                document.getElementById('toggleAuthMode').click();
-            } else {
-                document.getElementById('loginSpace').innerHTML = `<div class="user-badge">👤 Logged in as ${payload.email.split('@')[0]}</div>`;
+            alert(data.message);
+
+            if (currentAuthMode === 'login') {
+                const loginSpace = document.getElementById('loginSpace');
+
+                loginSpace.innerHTML = `
+                    <span class="user-badge">👤 ${email}</span>
+                    <button id="logoutBtn">Logout</button>
+                `;
+
+                document.getElementById('logoutBtn').addEventListener('click', function() {
+                    loginSpace.innerHTML = `
+                        <button onclick="openLogin()">Login</button>
+                    `;
+                });
+
                 closeLogin();
                 document.getElementById('authForm').reset();
             }
@@ -84,10 +96,9 @@ document.getElementById('authForm').addEventListener('submit', function(e) {
     .catch(error => alert(`Authentication Issue: ${error.message}`));
 });
 
-// STABLE MULTI-MODE TOGGLE (Preserves the Element and Event Listeners)
 document.getElementById('toggleAuthMode').addEventListener('click', function(e) {
     e.preventDefault();
-    
+
     const title = document.getElementById('authTitle');
     const submitBtn = document.getElementById('authSubmitBtn');
     const toggleLabel = document.getElementById('toggleLabel');
@@ -108,7 +119,6 @@ document.getElementById('toggleAuthMode').addEventListener('click', function(e) 
     }
 });
 
-// RESET VIEW STATES MANAGER
 document.getElementById('resetFormBtn').addEventListener('click', function() {
     document.getElementById('movieForm').reset();
     document.getElementById('movieList').innerHTML = '';
