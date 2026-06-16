@@ -4,12 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Movie Recommendation System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+    <div id="statusNotification" class="status-notification" style="display: none;"></div>
+
     <div class="top-right" id="loginSpace">
-        <button class="login-button" onclick="openLogin()">Login / Sign Up</button>
+        <button class="login-button" onclick="openLogin()"><i class="fa-solid fa-user"></i></button>
     </div>
 
     <div class="heading">
@@ -92,6 +95,16 @@
             <h1 id="authTitle">Login</h1>
             
             <form id="authForm">
+                <div class="avatar-selection-wrapper" id="avatarSelectionWrapper" style="display: none;">
+                    <label>Choose Profile Picture</label>
+                    <div class="avatar-options">
+                        <img src="https://api.dicebear.com/7.x/bottts/svg?seed=1" class="avatar-option selected" onclick="selectAvatar(this)">
+                        <img src="https://api.dicebear.com/7.x/bottts/svg?seed=2" class="avatar-option" onclick="selectAvatar(this)">
+                        <img src="https://api.dicebear.com/7.x/bottts/svg?seed=3" class="avatar-option" onclick="selectAvatar(this)">
+                        <img src="https://api.dicebear.com/7.x/bottts/svg?seed=4" class="avatar-option" onclick="selectAvatar(this)">
+                    </div>
+                </div>
+
                 <label>Email</label>
                 <input type="email" id="loginEmail" placeholder="Enter Email" required>
                 
@@ -107,9 +120,26 @@
         </div>
     </div>
 
+    <div class="login-popup" id="profilePopup">
+        <div class="login-container">
+            <span class="close-btn" onclick="closeProfilePopup()">&times;</span>
+            <h1>Update Profile Photo</h1>
+            <div class="avatar-options update-flow">
+                <img src="https://api.dicebear.com/7.x/bottts/svg?seed=1" class="avatar-update-option" onclick="confirmProfileUpdate(this.src)">
+                <img src="https://api.dicebear.com/7.x/bottts/svg?seed=2" class="avatar-update-option" onclick="confirmProfileUpdate(this.src)">
+                <img src="https://api.dicebear.com/7.x/bottts/svg?seed=3" class="avatar-update-option" onclick="confirmProfileUpdate(this.src)">
+                <img src="https://api.dicebear.com/7.x/bottts/svg?seed=4" class="avatar-update-option" onclick="confirmProfileUpdate(this.src)">
+                <img src="https://api.dicebear.com/7.x/bottts/svg?seed=5" class="avatar-update-option" onclick="confirmProfileUpdate(this.src)">
+                <img src="https://api.dicebear.com/7.x/bottts/svg?seed=6" class="avatar-update-option" onclick="confirmProfileUpdate(this.src)">
+            </div>
+        </div>
+    </div>
+
     <script>
         function openLogin(){ document.getElementById("loginPopup").style.display = "flex"; }
         function closeLogin(){ document.getElementById("loginPopup").style.display = "none"; }
+        function openProfilePopup(){ document.getElementById("profilePopup").style.display = "flex"; }
+        function closeProfilePopup(){ document.getElementById("profilePopup").style.display = "none"; }
     </script>
     <script src="script.js"></script>
 </body>
