@@ -1,10 +1,10 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body{
+body {
     min-height: 100vh;
     background-image: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.85)), url("static/resource/main.jpeg");
     background-size: cover;
@@ -25,7 +25,7 @@ body{
     color: white;
     font-weight: 600;
     border-radius: 12px;
-    z-index: 10000;
+    z-index: 10001;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
     text-align: center;
     max-width: 90%;
@@ -40,7 +40,34 @@ body{
     to { transform: translateX(-50%) translateY(0); }
 }
 
-.top-right{
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    z-index: 10000;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.loading-spinner {
+    width: 60px;
+    height: 60px;
+    border: 4px solid rgba(255, 255, 255, 0.1);
+    border-top: 4px solid #fca311;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.top-right {
     position: absolute;
     top: 25px;
     right: 30px;
@@ -83,6 +110,7 @@ body{
     cursor: pointer;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4), 0 0 0 2px rgba(252, 163, 17, 0.2);
     transition: all 0.3s ease;
+    object-fit: cover;
 }
 
 .user-avatar-trigger:hover {
@@ -98,7 +126,7 @@ body{
     background: #151515;
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 14px;
-    width: 240px;
+    width: 250px;
     padding: 8px;
     display: none;
     flex-direction: column;
@@ -146,12 +174,7 @@ body{
     color: #fca311;
 }
 
-.avatar-dropdown-menu button#logoutBtn:hover {
-    background: rgba(255, 75, 43, 0.15);
-    color: #ff4b2b;
-}
-
-.heading{
+.heading {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -159,7 +182,7 @@ body{
     padding: 110px 20px 20px 20px;
 }
 
-.heading span{
+.heading span {
     font-size: 50px;
     filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5));
 }
@@ -177,7 +200,7 @@ body{
     text-align: center;
 }
 
-.recommend-form{
+.recommend-form {
     width: 440px;
     margin: 20px auto 40px auto;
     padding: 40px;
@@ -188,13 +211,16 @@ body{
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
 }
 
-.recommend-form form{
+.recommend-form form {
     display: flex;
     flex-direction: column;
 }
 
-.recommend-form label,
-.login-container label{
+.form-group {
+    margin-bottom: 5px;
+}
+
+.form-group label {
     color: rgba(255, 255, 255, 0.75);
     margin-top: 18px;
     margin-bottom: 8px;
@@ -202,9 +228,16 @@ body{
     font-size: 13px;
     text-transform: uppercase;
     letter-spacing: 0.8px;
+    display: block;
 }
 
-.recommend-form select{
+.required {
+    color: #ff416c;
+}
+
+.recommend-form select,
+.login-container input {
+    width: 100%;
     padding: 14px;
     border-radius: 12px;
     border: 1px solid rgba(255, 255, 255, 0.15);
@@ -214,12 +247,13 @@ body{
     font-size: 15px;
     letter-spacing: 0.2px;
     cursor: pointer;
-    appearance: none;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'></polyline></svg>");
-    background-repeat: no-repeat;
-    background-position: right 14px center;
-    background-size: 16px;
     transition: all 0.2s ease;
+}
+
+.recommend-form select.error,
+.login-container input.error {
+    border-color: #ff416c;
+    box-shadow: 0 0 0 3px rgba(255, 65, 108, 0.25);
 }
 
 .recommend-form select:focus {
@@ -232,9 +266,24 @@ body{
     color: #ffffff;
 }
 
+.recommend-form select {
+    appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'></polyline></svg>");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    background-size: 16px;
+}
+
+.validation-error {
+    color: #ff416c;
+    font-size: 12px;
+    margin-top: 4px;
+    min-height: 18px;
+}
+
 .recommend-form button,
-.login-container button{
-    margin-top: 30px;
+.login-container button {
+    margin-top: 20px;
     padding: 15px;
     border: none;
     border-radius: 12px;
@@ -246,12 +295,18 @@ body{
     transition: all 0.3s ease;
 }
 
+.recommend-form button:disabled,
+.login-container button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
 .submit-btn {
     background: linear-gradient(135deg, #ff416c, #ff4b2b);
     box-shadow: 0 6px 20px rgba(255, 65, 108, 0.3);
 }
 
-.submit-btn:hover {
+.submit-btn:hover:not(:disabled) {
     transform: translateY(-2px);
     box-shadow: 0 8px 25px rgba(255, 65, 108, 0.5);
 }
@@ -266,7 +321,25 @@ body{
     background: rgba(255, 255, 255, 0.12);
 }
 
-.result-box{
+.delete-btn {
+    background: linear-gradient(135deg, #ff0000, #cc0000);
+}
+
+.delete-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255, 0, 0, 0.4);
+}
+
+.cancel-btn {
+    background: rgba(255, 255, 255, 0.1);
+    margin-top: 10px !important;
+}
+
+.cancel-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.result-box {
     width: 85%;
     max-width: 900px;
     margin: 0 auto 50px auto;
@@ -278,35 +351,22 @@ body{
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
 }
 
-.result-box h1{
+.result-box h1 {
     font-size: 28px;
     font-weight: 700;
     color: #ffffff;
     margin-bottom: 25px;
-    position: relative;
-    display: inline-block;
+    text-align: center;
 }
 
-.result-box h1::after {
-    content: '';
-    position: absolute;
-    bottom: -6px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 3px;
-    background: #ff416c;
-    border-radius: 2px;
-}
-
-#movieList{
+#movieList {
     list-style: none;
     display: flex;
     flex-direction: column;
     gap: 12px;
 }
 
-#movieList li{
+#movieList li {
     color: #eeeeee;
     font-size: 16px;
     text-align: left;
@@ -323,7 +383,35 @@ body{
     border-color: rgba(252, 163, 17, 0.3);
 }
 
-.login-popup{
+#movieList .history-header {
+    background: transparent;
+    border: none;
+    padding: 0 0 10px 0;
+}
+
+#movieList .history-header h3 {
+    color: #fca311;
+    font-size: 20px;
+}
+
+#movieList .history-search-title {
+    background: rgba(252, 163, 17, 0.1);
+    border-color: rgba(252, 163, 17, 0.2);
+    font-weight: 600;
+}
+
+#movieList .history-movie-item {
+    padding-left: 40px;
+    font-size: 14px;
+}
+
+#movieList .no-results {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.6);
+    font-style: italic;
+}
+
+.login-popup {
     width: 100%;
     height: 100vh;
     background: rgba(0, 0, 0, 0.7);
@@ -338,23 +426,29 @@ body{
     padding: 20px;
 }
 
-.login-container{
+.login-container {
     width: 420px;
+    max-height: 90vh;
+    overflow-y: auto;
     background: #111111;
     padding: 40px;
     border-radius: 24px;
-    border: 1px solid rgba(255, 255, 255, 0.1); 
+    border: 1px solid rgba(255, 255, 255, 0.1);
     position: relative;
     box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
 }
 
-.login-container h1{
+.login-container h1 {
     text-align: center;
     color: #ffffff;
     margin-top: 5px;
     margin-bottom: 30px;
     font-size: 30px;
     font-weight: 700;
+}
+
+.login-container p {
+    color: rgba(255, 255, 255, 0.7);
 }
 
 .avatar-selection-wrapper {
@@ -378,6 +472,7 @@ body{
     border: 2px solid rgba(255,255,255,0.1);
     cursor: pointer;
     transition: all 0.2s ease;
+    object-fit: cover;
 }
 
 .avatar-option:hover {
@@ -397,6 +492,7 @@ body{
     border: 2px solid rgba(255,255,255,0.1);
     cursor: pointer;
     transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    object-fit: cover;
 }
 
 .avatar-update-option:hover {
@@ -410,22 +506,19 @@ body{
     padding: 15px 0;
 }
 
-.login-container input{
-    width: 100%;
-    padding: 14px;
-    border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    background-color: rgba(255, 255, 255, 0.05); 
-    color: #ffffff;            
-    outline: none;
-    font-size: 15px;
+.login-container input {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: #ffffff;
     margin-bottom: 5px;
-    transition: all 0.2s ease;
 }
 
 .login-container input:focus {
     border-color: #fca311;
     background-color: rgba(255, 255, 255, 0.08);
+}
+
+.login-container input.error {
+    border-color: #ff416c;
 }
 
 .login-container button {
@@ -434,11 +527,11 @@ body{
     box-shadow: 0 4px 15px rgba(255, 65, 108, 0.3);
 }
 
-.login-container button:hover {
+.login-container button:hover:not(:disabled) {
     box-shadow: 0 6px 20px rgba(255, 65, 108, 0.5);
 }
 
-.close-btn{
+.close-btn {
     position: absolute;
     top: 16px;
     right: 22px;
@@ -476,7 +569,25 @@ body{
     color: #ff4b2b;
 }
 
-@media(max-width: 600px){
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #fca311;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #ff4b2b;
+}
+
+@media(max-width: 600px) {
     .top-right {
         position: absolute;
         top: 16px;
@@ -548,6 +659,7 @@ body{
         width: 100%;
         padding: 30px 20px;
         border-radius: 20px;
+        max-height: 95vh;
     }
 
     .login-container h1 {
@@ -558,5 +670,10 @@ body{
     .avatar-update-option {
         width: 58px;
         height: 58px;
+    }
+
+    .avatar-option {
+        width: 46px;
+        height: 46px;
     }
 }

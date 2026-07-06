@@ -10,6 +10,9 @@
 <body>
 
     <div id="statusNotification" class="status-notification" style="display: none;"></div>
+    <div id="loadingOverlay" class="loading-overlay" style="display: none;">
+        <div class="loading-spinner"></div>
+    </div>
 
     <div class="top-right" id="loginSpace">
         <button class="login-button" onclick="openLogin()"><i class="fa-solid fa-user"></i></button>
@@ -22,63 +25,75 @@
     </div>
 
     <div class="recommend-form" id="formSection">
-        <form id="movieForm">
-            <label>Select Genre</label>
-            <select id="genre" required>
-                <option value="">Choose Genre</option>
-                <option value="Action">Action</option>
-                <option value="Adventure">Adventure</option>
-                <option value="Animation">Animation</option>
-                <option value="Comedy">Comedy</option>
-                <option value="Crime">Crime</option>
-                <option value="Documentary">Documentary</option>
-                <option value="Drama">Drama</option>
-                <option value="Family">Family</option>
-                <option value="Fantasy">Fantasy</option>
-                <option value="History">History</option>
-                <option value="Horror">Horror</option>
-                <option value="Music">Music</option>
-                <option value="Mystery">Mystery</option>
-                <option value="Romance">Romance</option>
-                <option value="Science Fiction">Science Fiction</option>
-                <option value="Thriller">Thriller</option>
-                <option value="War">War</option>
-                <option value="Western">Western</option>
-            </select>
+        <form id="movieForm" novalidate>
+            <div class="form-group">
+                <label for="genre">Select Genre <span class="required">*</span></label>
+                <select id="genre" required>
+                    <option value="">Choose Genre</option>
+                    <option value="Action">Action</option>
+                    <option value="Adventure">Adventure</option>
+                    <option value="Animation">Animation</option>
+                    <option value="Comedy">Comedy</option>
+                    <option value="Crime">Crime</option>
+                    <option value="Documentary">Documentary</option>
+                    <option value="Drama">Drama</option>
+                    <option value="Family">Family</option>
+                    <option value="Fantasy">Fantasy</option>
+                    <option value="History">History</option>
+                    <option value="Horror">Horror</option>
+                    <option value="Music">Music</option>
+                    <option value="Mystery">Mystery</option>
+                    <option value="Romance">Romance</option>
+                    <option value="Science Fiction">Science Fiction</option>
+                    <option value="Thriller">Thriller</option>
+                    <option value="War">War</option>
+                    <option value="Western">Western</option>
+                </select>
+                <div class="validation-error" id="genreError"></div>
+            </div>
 
-            <label>Select Language</label>
-            <select id="language" required>
-                <option value="">Choose Language</option>
-                <option value="en">English</option>
-                <option value="fr">French</option>
-                <option value="es">Spanish</option>
-                <option value="de">German</option>
-                <option value="hi">Hindi</option>
-                <option value="ja">Japanese</option>
-                <option value="it">Italian</option>
-                <option value="ko">Korean</option>
-                <option value="zh">Chinese</option>
-            </select>
+            <div class="form-group">
+                <label for="language">Select Language <span class="required">*</span></label>
+                <select id="language" required>
+                    <option value="">Choose Language</option>
+                    <option value="en">English</option>
+                    <option value="fr">French</option>
+                    <option value="es">Spanish</option>
+                    <option value="de">German</option>
+                    <option value="hi">Hindi</option>
+                    <option value="ja">Japanese</option>
+                    <option value="it">Italian</option>
+                    <option value="ko">Korean</option>
+                    <option value="zh">Chinese</option>
+                </select>
+                <div class="validation-error" id="languageError"></div>
+            </div>
 
-            <label>Sort By</label>
-            <select id="sortBy" required>
-                <option value="">Choose Criteria</option>
-                <option value="popularity">Popularity</option>
-                <option value="vote_average">IMDb Rating</option>
-                <option value="revenue">Box Office Revenue</option>
-            </select>
+            <div class="form-group">
+                <label for="sortBy">Sort By <span class="required">*</span></label>
+                <select id="sortBy" required>
+                    <option value="">Choose Criteria</option>
+                    <option value="popularity">Popularity</option>
+                    <option value="vote_average">IMDb Rating</option>
+                    <option value="revenue">Box Office Revenue</option>
+                </select>
+                <div class="validation-error" id="sortByError"></div>
+            </div>
 
-            <label>Select Minimum IMDb Rating</label>
-            <select id="rating" required>
-                <option value="">Choose Rating</option>
-                <option value="5">5+</option>
-                <option value="6">6+</option>
-                <option value="7">7+</option>
-                <option value="8">8+</option>
-                <option value="9">9+</option>
-            </select>
+            <div class="form-group">
+                <label for="rating">Select Minimum IMDb Rating <span class="required">*</span></label>
+                <select id="rating" required>
+                    <option value="">Choose Rating</option>
+                    <option value="5">5+</option>
+                    <option value="6">6+</option>
+                    <option value="7">7+</option>
+                    <option value="8">8+</option>
+                    <option value="9">9+</option>
+                </select>
+                <div class="validation-error" id="ratingError"></div>
+            </div>
 
-            <button type="submit" class="submit-btn">Find Best Movies</button>
+            <button type="submit" class="submit-btn" id="submitBtn">Find Best Movies</button>
             <button type="button" id="resetFormBtn" class="reset-btn">Reset Form</button>
         </form>
     </div>
@@ -94,22 +109,28 @@
             
             <h1 id="authTitle">Login</h1>
             
-            <form id="authForm">
+            <form id="authForm" novalidate>
                 <div class="avatar-selection-wrapper" id="avatarSelectionWrapper" style="display: none;">
                     <label>Choose Profile Picture</label>
                     <div class="avatar-options">
-                        <img src="https://api.dicebear.com/7.x/bottts/svg?seed=1" class="avatar-option selected" onclick="selectAvatar(this)">
-                        <img src="https://api.dicebear.com/7.x/bottts/svg?seed=2" class="avatar-option" onclick="selectAvatar(this)">
-                        <img src="https://api.dicebear.com/7.x/bottts/svg?seed=3" class="avatar-option" onclick="selectAvatar(this)">
-                        <img src="https://api.dicebear.com/7.x/bottts/svg?seed=4" class="avatar-option" onclick="selectAvatar(this)">
+                        <img src="https://api.dicebear.com/7.x/bottts/svg?seed=1" class="avatar-option selected" onclick="selectAvatar(this)" alt="Avatar 1">
+                        <img src="https://api.dicebear.com/7.x/bottts/svg?seed=2" class="avatar-option" onclick="selectAvatar(this)" alt="Avatar 2">
+                        <img src="https://api.dicebear.com/7.x/bottts/svg?seed=3" class="avatar-option" onclick="selectAvatar(this)" alt="Avatar 3">
+                        <img src="https://api.dicebear.com/7.x/bottts/svg?seed=4" class="avatar-option" onclick="selectAvatar(this)" alt="Avatar 4">
                     </div>
                 </div>
 
-                <label>Email</label>
-                <input type="email" id="loginEmail" placeholder="Enter Email" required>
+                <div class="form-group">
+                    <label for="loginEmail">Email <span class="required">*</span></label>
+                    <input type="email" id="loginEmail" placeholder="Enter Email" required>
+                    <div class="validation-error" id="loginEmailError"></div>
+                </div>
                 
-                <label>Password</label>
-                <input type="password" id="loginPassword" placeholder="Enter Password" required>
+                <div class="form-group">
+                    <label for="loginPassword">Password <span class="required">*</span></label>
+                    <input type="password" id="loginPassword" placeholder="Enter Password" required minlength="6">
+                    <div class="validation-error" id="loginPasswordError"></div>
+                </div>
                 
                 <button type="submit" id="authSubmitBtn">Login</button>
             </form>
@@ -125,22 +146,33 @@
             <span class="close-btn" onclick="closeProfilePopup()">&times;</span>
             <h1>Update Profile Photo</h1>
             <div class="avatar-options update-flow">
-                <img src="https://api.dicebear.com/7.x/bottts/svg?seed=1" class="avatar-update-option" onclick="confirmProfileUpdate(this.src)">
-                <img src="https://api.dicebear.com/7.x/bottts/svg?seed=2" class="avatar-update-option" onclick="confirmProfileUpdate(this.src)">
-                <img src="https://api.dicebear.com/7.x/bottts/svg?seed=3" class="avatar-update-option" onclick="confirmProfileUpdate(this.src)">
-                <img src="https://api.dicebear.com/7.x/bottts/svg?seed=4" class="avatar-update-option" onclick="confirmProfileUpdate(this.src)">
-                <img src="https://api.dicebear.com/7.x/bottts/svg?seed=5" class="avatar-update-option" onclick="confirmProfileUpdate(this.src)">
-                <img src="https://api.dicebear.com/7.x/bottts/svg?seed=6" class="avatar-update-option" onclick="confirmProfileUpdate(this.src)">
+                <img src="https://api.dicebear.com/7.x/bottts/svg?seed=1" class="avatar-update-option" onclick="confirmProfileUpdate(this.src)" alt="Avatar 1">
+                <img src="https://api.dicebear.com/7.x/bottts/svg?seed=2" class="avatar-update-option" onclick="confirmProfileUpdate(this.src)" alt="Avatar 2">
+                <img src="https://api.dicebear.com/7.x/bottts/svg?seed=3" class="avatar-update-option" onclick="confirmProfileUpdate(this.src)" alt="Avatar 3">
+                <img src="https://api.dicebear.com/7.x/bottts/svg?seed=4" class="avatar-update-option" onclick="confirmProfileUpdate(this.src)" alt="Avatar 4">
+                <img src="https://api.dicebear.com/7.x/bottts/svg?seed=5" class="avatar-update-option" onclick="confirmProfileUpdate(this.src)" alt="Avatar 5">
+                <img src="https://api.dicebear.com/7.x/bottts/svg?seed=6" class="avatar-update-option" onclick="confirmProfileUpdate(this.src)" alt="Avatar 6">
             </div>
         </div>
     </div>
 
-    <script>
-        function openLogin(){ document.getElementById("loginPopup").style.display = "flex"; }
-        function closeLogin(){ document.getElementById("loginPopup").style.display = "none"; }
-        function openProfilePopup(){ document.getElementById("profilePopup").style.display = "flex"; }
-        function closeProfilePopup(){ document.getElementById("profilePopup").style.display = "none"; }
-    </script>
+    <div class="login-popup" id="deleteAccountPopup">
+        <div class="login-container">
+            <span class="close-btn" onclick="closeDeletePopup()">&times;</span>
+            <h1>Delete Account</h1>
+            <p style="color: #ff6b6b; text-align: center; margin-bottom: 20px;">This action cannot be undone. All your data will be permanently removed.</p>
+            <form id="deleteAccountForm" novalidate>
+                <div class="form-group">
+                    <label for="deletePassword">Enter Password to Confirm <span class="required">*</span></label>
+                    <input type="password" id="deletePassword" placeholder="Enter your password" required>
+                    <div class="validation-error" id="deletePasswordError"></div>
+                </div>
+                <button type="submit" class="delete-btn">Delete Account</button>
+                <button type="button" class="cancel-btn" onclick="closeDeletePopup()">Cancel</button>
+            </form>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
